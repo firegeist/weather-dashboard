@@ -8,6 +8,7 @@ import PrecipitationChart from "@/components/PrecipitationChart";
 import ForecastGrid from "@/components/ForecastGrid";
 import WindCard from "@/components/WindCard";
 import UVIndex from "@/components/UVIndex";
+import { getAtmosphericState } from "@/lib/utils";
 
 interface CityPageProps {
   params: Promise<{ city: string }>;
@@ -83,6 +84,7 @@ export default async function CityPage({ params }: CityPageProps) {
 
   const forecast = await getWeatherData(result.latitude, result.longitude, result.name);
   const { current, today, hourly, daily } = forecast;
+  const atmClass = getAtmosphericState(current.weathercode, current.isDay ? 1 : 0);
 
   const cityLabel = result.country
     ? `${result.name}, ${result.country}`
@@ -92,28 +94,36 @@ export default async function CityPage({ params }: CityPageProps) {
   const updatedAt = `${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`;
 
   return (
-    <main className="min-h-screen px-4 py-8 max-w-5xl mx-auto flex flex-col gap-6">
+    <main className={`${atmClass} min-h-screen px-4 sm:px-6 py-6 sm:py-8 max-w-5xl mx-auto flex flex-col gap-4 sm:gap-6`}>
 
       {/* ── Header ── */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-        <div className="flex items-center gap-4">
+      <div
+        className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1.5 sm:gap-2 pb-4 sm:pb-5"
+        style={{ borderBottom: "1px solid var(--border)" }}
+      >
+        <div className="flex items-center gap-3 sm:gap-4">
           <Link
             href="/"
             style={{
               color: "var(--text-secondary)",
-              fontSize: "0.875rem",
+              fontSize: "0.8125rem",
               fontFamily: "var(--font-dm-mono)",
+              textDecoration: "none",
+              transition: "color 0.2s",
             }}
-            className="hover:underline"
+            className="hover:[color:var(--accent)]"
           >
-            ← Volver
+            ← volver
           </Link>
+          <span style={{ color: "var(--border-strong)", fontSize: "0.875rem" }}>|</span>
           <h1
             style={{
               color: "var(--text-primary)",
-              fontSize: "1.25rem",
+              fontSize: "clamp(1rem, 3.5vw, 1.25rem)",
               fontWeight: 600,
               margin: 0,
+              fontFamily: "var(--font-dm-mono)",
+              letterSpacing: "-0.02em",
             }}
           >
             {cityLabel}
@@ -122,12 +132,13 @@ export default async function CityPage({ params }: CityPageProps) {
         <p
           style={{
             color: "var(--text-secondary)",
-            fontSize: "0.75rem",
+            fontSize: "0.7rem",
             fontFamily: "var(--font-dm-mono)",
             margin: 0,
+            letterSpacing: "0.04em",
           }}
         >
-          Actualizado: {updatedAt}
+          actualizado: {updatedAt}
         </p>
       </div>
 
@@ -137,20 +148,13 @@ export default async function CityPage({ params }: CityPageProps) {
         <WeatherCard current={current} today={today} />
 
         {/* Right: hourly temperature chart */}
-        <div
-          style={{
-            background: "var(--bg-secondary)",
-            border: "1px solid var(--border)",
-            borderRadius: "16px",
-            padding: "1.5rem",
-          }}
-        >
+        <div className="w-card">
           <HourlyChart data={hourly} />
         </div>
       </div>
 
       {/* ── Row 2: Wind + UV + PrecipitationChart ── */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
         <WindCard
           windspeed={current.windspeed}
           winddirection={current.winddirection}
@@ -161,32 +165,18 @@ export default async function CityPage({ params }: CityPageProps) {
           sunrise={today.sunrise}
           sunset={today.sunset}
         />
-        <div
-          style={{
-            background: "var(--bg-secondary)",
-            border: "1px solid var(--border)",
-            borderRadius: "16px",
-            padding: "1.5rem",
-          }}
-        >
+        <div className="w-card col-span-2 sm:col-span-1">
           <PrecipitationChart data={hourly} />
         </div>
       </div>
 
       {/* ── Row 3: 7-day forecast ── */}
-      <div
-        style={{
-          background: "var(--bg-secondary)",
-          border: "1px solid var(--border)",
-          borderRadius: "16px",
-          padding: "1.5rem",
-        }}
-      >
+      <div className="w-card">
         <ForecastGrid days={daily} />
       </div>
 
       {/* Credits */}
-      <p style={{ color: "var(--text-secondary)", fontSize: "0.75rem", textAlign: "right", paddingTop: "0.5rem", paddingBottom: "1rem" }}>
+      <p style={{ color: "var(--text-secondary)", fontSize: "0.7rem", textAlign: "right", paddingTop: "0.25rem", paddingBottom: "0.5rem" }}>
         por José Herranz ·{" "}
         <a
           href="https://joseherranz.dev"
