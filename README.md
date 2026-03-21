@@ -59,6 +59,12 @@ npm install
 
 # 3. Iniciar el servidor de desarrollo
 npm run dev
+
+# Build de producción
+npm run build
+
+# Linter
+npm run lint
 ```
 
 Abre [http://localhost:3000](http://localhost:3000).
