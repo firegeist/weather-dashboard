@@ -25,11 +25,8 @@ export default function UVIndex({ uvIndexMax, sunrise, sunset }: UVIndexProps) {
 
   return (
     <div
+      className="w-card"
       style={{
-        background: "var(--bg-secondary)",
-        border: "1px solid var(--border)",
-        borderRadius: "16px",
-        padding: "1.5rem",
         display: "flex",
         flexDirection: "column",
         gap: "1rem",
