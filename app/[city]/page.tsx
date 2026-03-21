@@ -14,10 +14,27 @@ interface CityPageProps {
 }
 
 // ─── Slug resolver ────────────────────────────────────────────────────────────
-// "madrid-es"   → name="madrid",    countryCode="ES"
-// "new-york-us" → name="new york",  countryCode="US"
+// "geo-40.41-(-3.70)" → lat/lon directo, name="Mi ubicación"
+// "madrid-es"         → name="madrid",   countryCode="ES"
+// "new-york-us"       → name="new york", countryCode="US"
 
-async function resolveSlug(slug: string) {
+interface ResolvedCity {
+  latitude: number;
+  longitude: number;
+  name: string;
+  country?: string;
+}
+
+async function resolveSlug(slug: string): Promise<ResolvedCity | null> {
+  const geoMatch = /^geo-(-?[\d.]+)-(-?[\d.]+)$/.exec(slug);
+  if (geoMatch) {
+    return {
+      latitude: parseFloat(geoMatch[1]),
+      longitude: parseFloat(geoMatch[2]),
+      name: "Mi ubicación",
+    };
+  }
+
   const lastHyphen = slug.lastIndexOf("-");
   if (lastHyphen === -1) return null;
 
