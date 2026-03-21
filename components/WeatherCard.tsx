@@ -10,16 +10,11 @@ interface WeatherCardProps {
 
 export default function WeatherCard({ current, today }: WeatherCardProps) {
   const { label } = getWMODescription(current.weathercode);
-  const tempColor =
-    current.temperature > 20 ? "var(--accent-green)" : "var(--accent-blue)";
 
   return (
     <div
+      className="w-card"
       style={{
-        background: "var(--bg-secondary)",
-        border: "1px solid var(--border)",
-        borderRadius: "16px",
-        padding: "1.5rem",
         display: "flex",
         flexDirection: "column",
         gap: "0.5rem",
@@ -30,11 +25,11 @@ export default function WeatherCard({ current, today }: WeatherCardProps) {
         <WeatherIcon code={current.weathercode} size="lg" />
         <span
           style={{
-            fontFamily: "'DM Mono', monospace",
-            fontSize: "4rem",
+            fontFamily: "var(--font-dm-mono)",
+            fontSize: "clamp(2.5rem, 10vw, 4rem)",
             fontWeight: 500,
             lineHeight: 1,
-            color: tempColor,
+            color: "var(--accent)",
           }}
         >
           {formatTemperature(current.temperature)}
@@ -75,10 +70,10 @@ export default function WeatherCard({ current, today }: WeatherCardProps) {
           fontSize: "0.9rem",
         }}
       >
-        <span style={{ color: "var(--accent-green)" }}>
+        <span style={{ color: "var(--accent)" }}>
           ↑ {formatTemperature(today.tempMax)}
         </span>
-        <span style={{ color: "var(--accent-blue)" }}>
+        <span style={{ color: "var(--text-secondary)" }}>
           ↓ {formatTemperature(today.tempMin)}
         </span>
       </div>
