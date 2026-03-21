@@ -174,7 +174,7 @@ export default async function CityPage({ params }: CityPageProps) {
       </div>
 
       {/* ── Row 3: Wind + UV ── */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <WindCard
           windspeed={current.windspeed}
           winddirection={current.winddirection}
