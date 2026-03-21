@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback, useSyncExternalStore } from "react";
 
 const STORAGE_KEY = "weather-recent-cities";
 const MAX_CITIES = 5;
@@ -27,15 +27,15 @@ function writeToStorage(cities: RecentCity[]): void {
   }
 }
 
-export function useRecentCities() {
-  const [cities, setCities] = useState<RecentCity[]>([]);
-  const [mounted, setMounted] = useState(false);
+// useSyncExternalStore returns false on the server and true on the client,
+// matching the hydration guard without calling setState inside an effect.
+const noopSubscribe = () => () => {};
 
-  useEffect(() => {
-    setMounted(true);
-    const stored = readFromStorage();
-    if (stored.length > 0) setCities(stored);
-  }, []);
+export function useRecentCities() {
+  // readFromStorage() returns [] on the server (typeof window guard),
+  // so lazy initialization is safe and no effect is needed.
+  const [cities, setCities] = useState<RecentCity[]>(() => readFromStorage());
+  const mounted = useSyncExternalStore(noopSubscribe, () => true, () => false);
 
   const addCity = useCallback((city: RecentCity) => {
     setCities((prev) => {

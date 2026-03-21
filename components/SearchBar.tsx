@@ -31,17 +31,11 @@ export default function SearchBar({ onSelect }: SearchBarProps) {
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // ── Debounced search ────────────────────────────────────────────────────────
+  // Synchronous resets live in onChange (not in effect) to satisfy react-hooks/set-state-in-effect.
   useEffect(() => {
+    if (!query.trim()) return;
+
     if (debounceRef.current) clearTimeout(debounceRef.current);
-
-    if (!query.trim()) {
-      setResults([]);
-      setOpen(false);
-      setSearching(false);
-      return;
-    }
-
-    setSearching(true);
 
     debounceRef.current = setTimeout(async () => {
       const data = await searchCities(query);
@@ -133,7 +127,18 @@ export default function SearchBar({ onSelect }: SearchBarProps) {
             ref={inputRef}
             type="text"
             value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            onChange={(e) => {
+              const value = e.target.value;
+              setQuery(value);
+              if (!value.trim()) {
+                if (debounceRef.current) clearTimeout(debounceRef.current);
+                setResults([]);
+                setOpen(false);
+                setSearching(false);
+              } else {
+                setSearching(true);
+              }
+            }}
             onKeyDown={handleKeyDown}
             onBlur={() => setTimeout(() => setOpen(false), 150)}
             onFocus={() => results.length > 0 && setOpen(true)}
@@ -143,6 +148,7 @@ export default function SearchBar({ onSelect }: SearchBarProps) {
             role="combobox"
             aria-autocomplete="list"
             aria-expanded={open}
+            aria-controls="search-listbox"
             aria-haspopup="listbox"
             aria-activedescendant={
               activeIndex >= 0 ? `result-${activeIndex}` : undefined
@@ -153,6 +159,7 @@ export default function SearchBar({ onSelect }: SearchBarProps) {
         {/* Dropdown */}
         {open && (
           <ul
+            id="search-listbox"
             role="listbox"
             className="absolute z-50 w-full mt-1 rounded-xl border overflow-hidden shadow-xl"
             style={{
