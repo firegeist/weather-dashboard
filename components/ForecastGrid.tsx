@@ -35,13 +35,10 @@ export default function ForecastGrid({ days }: ForecastGridProps) {
             <div
               key={day.date}
               style={{
-                background:
-                  index === 0
-                    ? "rgba(126,242,192,0.08)"
-                    : "var(--bg-tertiary)",
+                background: index === 0 ? "var(--card-tint)" : "var(--bg-tertiary)",
                 border:
                   index === 0
-                    ? "1px solid rgba(126,242,192,0.2)"
+                    ? "1px solid var(--accent)"
                     : "1px solid var(--border)",
                 borderRadius: "12px",
                 padding: "0.75rem 0.5rem",
@@ -55,7 +52,7 @@ export default function ForecastGrid({ days }: ForecastGridProps) {
               {/* Day label */}
               <span
                 style={{
-                  color: index === 0 ? "var(--accent-green)" : "var(--text-secondary)",
+                  color: index === 0 ? "var(--accent)" : "var(--text-secondary)",
                   fontSize: "0.7rem",
                   textTransform: "uppercase",
                   letterSpacing: "0.06em",
