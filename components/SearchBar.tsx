@@ -104,7 +104,7 @@ export default function SearchBar({ onSelect }: SearchBarProps) {
       {/* Search input */}
       <div className="relative">
         <div
-          className="flex items-center gap-2 rounded-xl border px-4 py-3 transition-colors focus-within:border-[var(--accent-green)]"
+          className="flex items-center gap-2 rounded-xl border px-4 py-3 transition-colors focus-within:border-[var(--accent)]"
           style={{
             background: "var(--bg-secondary)",
             borderColor: "var(--border)",
@@ -184,7 +184,7 @@ export default function SearchBar({ onSelect }: SearchBarProps) {
                 <MapPin
                   size={13}
                   className="shrink-0"
-                  style={{ color: "var(--accent-green)" }}
+                  style={{ color: "var(--accent)" }}
                 />
                 <div className="flex flex-col min-w-0">
                   <span
@@ -210,11 +210,11 @@ export default function SearchBar({ onSelect }: SearchBarProps) {
       <button
         onClick={requestGeo}
         disabled={geoLoading}
-        className="flex items-center justify-center gap-2 rounded-xl border px-4 py-3 text-sm font-medium transition-colors disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed hover:border-[var(--accent-green)]"
+        className="flex items-center justify-center gap-2 rounded-xl border px-4 py-3 text-sm font-medium transition-colors disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed hover:border-[var(--accent)]"
         style={{
           background: "var(--bg-secondary)",
           borderColor: "var(--border)",
-          color: geoLoading ? "var(--text-secondary)" : "var(--accent-green)",
+          color: geoLoading ? "var(--text-secondary)" : "var(--accent)",
         }}
       >
         {geoLoading ? (
