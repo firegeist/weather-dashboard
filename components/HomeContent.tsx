@@ -9,7 +9,7 @@ import type { GeocodingResult } from "@/types/weather";
 
 export default function HomeContent() {
   const router = useRouter();
-  const { cities, addCity, removeCity } = useRecentCities();
+  const { cities, addCity, removeCity, mounted } = useRecentCities();
 
   function handleSelect(result: GeocodingResult) {
     addCity({ slug: getCitySlug(result), name: result.name });
@@ -44,7 +44,7 @@ export default function HomeContent() {
         </div>
 
         {/* Recent cities */}
-        {cities.length > 0 && (
+        {mounted && cities.length > 0 && (
           <section className="w-full flex flex-col gap-3">
             <div
               className="flex items-center gap-1.5 text-xs font-medium"

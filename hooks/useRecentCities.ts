@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 const STORAGE_KEY = "weather-recent-cities";
 const MAX_CITIES = 5;
@@ -28,7 +28,14 @@ function writeToStorage(cities: RecentCity[]): void {
 }
 
 export function useRecentCities() {
-  const [cities, setCities] = useState<RecentCity[]>(() => readFromStorage());
+  const [cities, setCities] = useState<RecentCity[]>([]);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    const stored = readFromStorage();
+    if (stored.length > 0) setCities(stored);
+  }, []);
 
   const addCity = useCallback((city: RecentCity) => {
     setCities((prev) => {
@@ -48,5 +55,5 @@ export function useRecentCities() {
     });
   }, []);
 
-  return { cities, addCity, removeCity };
+  return { cities, addCity, removeCity, mounted };
 }
