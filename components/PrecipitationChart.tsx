@@ -4,6 +4,7 @@ import {
   BarChart,
   Bar,
   XAxis,
+  YAxis,
   Tooltip,
   ResponsiveContainer,
   CartesianGrid,
@@ -87,6 +88,8 @@ export default function PrecipitationChart({ data }: PrecipitationChartProps) {
             tickLine={false}
             interval={3}
           />
+
+          <YAxis hide={true} domain={[0, 100]} />
 
           <Tooltip
             content={<CustomTooltip />}
