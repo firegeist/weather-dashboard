@@ -131,50 +131,26 @@ export default async function CityPage({ params }: CityPageProps) {
         </p>
       </div>
 
-      {/* ── Row 1: WeatherCard + Charts ── */}
+      {/* ── Row 1: WeatherCard + HourlyChart ── */}
       <div className="grid grid-cols-1 lg:grid-cols-[2fr_3fr] gap-4">
         {/* Left: current conditions */}
         <WeatherCard current={current} today={today} />
 
-        {/* Right: hourly charts stacked */}
-        <div className="flex flex-col gap-4">
-          <div
-            style={{
-              background: "var(--bg-secondary)",
-              border: "1px solid var(--border)",
-              borderRadius: "16px",
-              padding: "1.5rem",
-            }}
-          >
-            <HourlyChart data={hourly} />
-          </div>
-          <div
-            style={{
-              background: "var(--bg-secondary)",
-              border: "1px solid var(--border)",
-              borderRadius: "16px",
-              padding: "1.5rem",
-            }}
-          >
-            <PrecipitationChart data={hourly} />
-          </div>
+        {/* Right: hourly temperature chart */}
+        <div
+          style={{
+            background: "var(--bg-secondary)",
+            border: "1px solid var(--border)",
+            borderRadius: "16px",
+            padding: "1.5rem",
+          }}
+        >
+          <HourlyChart data={hourly} />
         </div>
       </div>
 
-      {/* ── Row 2: 7-day forecast ── */}
-      <div
-        style={{
-          background: "var(--bg-secondary)",
-          border: "1px solid var(--border)",
-          borderRadius: "16px",
-          padding: "1.5rem",
-        }}
-      >
-        <ForecastGrid days={daily} />
-      </div>
-
-      {/* ── Row 3: Wind + UV ── */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      {/* ── Row 2: Wind + UV + PrecipitationChart ── */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <WindCard
           windspeed={current.windspeed}
           winddirection={current.winddirection}
@@ -185,6 +161,28 @@ export default async function CityPage({ params }: CityPageProps) {
           sunrise={today.sunrise}
           sunset={today.sunset}
         />
+        <div
+          style={{
+            background: "var(--bg-secondary)",
+            border: "1px solid var(--border)",
+            borderRadius: "16px",
+            padding: "1.5rem",
+          }}
+        >
+          <PrecipitationChart data={hourly} />
+        </div>
+      </div>
+
+      {/* ── Row 3: 7-day forecast ── */}
+      <div
+        style={{
+          background: "var(--bg-secondary)",
+          border: "1px solid var(--border)",
+          borderRadius: "16px",
+          padding: "1.5rem",
+        }}
+      >
+        <ForecastGrid days={daily} />
       </div>
 
     </main>
