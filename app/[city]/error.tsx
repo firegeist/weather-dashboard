@@ -63,8 +63,8 @@ export default function CityError({ error, reset }: ErrorProps) {
           onClick={reset}
           className="px-4 py-2 rounded-lg text-sm font-medium transition-opacity hover:opacity-80 cursor-pointer"
           style={{
-            background: "var(--accent-green)",
-            color: "#0c0c0e",
+            background: "var(--accent)",
+            color: "var(--bg-primary)",
             fontFamily: "var(--font-dm-mono)",
           }}
         >

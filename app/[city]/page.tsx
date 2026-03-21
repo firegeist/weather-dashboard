@@ -71,7 +71,7 @@ export default async function CityPage({ params }: CityPageProps) {
         <Link
           href="/"
           style={{
-            color: "var(--accent-green)",
+            color: "var(--accent)",
             fontFamily: "var(--font-dm-mono)",
             fontSize: "0.875rem",
           }}
