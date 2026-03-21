@@ -43,21 +43,6 @@ No requiere API key ni registro — usa la API gratuita de [Open-Meteo](https://
 - [x] Historial de ciudades buscadas (guardado local)
 - [x] Diseño totalmente responsive
 
-### v1.1 — Personalización
-- [ ] Unidades configurables: °C / °F, km/h / mph
-- [ ] Modo claro / oscuro
-- [ ] Ciudades favoritas ancladas
-
-### v1.2 — Más datos
-- [ ] Calidad del aire (AQI) con Open-Meteo Air Quality API
-- [ ] Comparativa entre dos ciudades
-- [ ] Mapa de radar de precipitación
-
-### v1.3 — PWA
-- [ ] Installable como app (PWA)
-- [ ] Notificaciones push para alertas de lluvia
-- [ ] Soporte offline con datos en caché
-
 ---
 
 ## Instalación local
