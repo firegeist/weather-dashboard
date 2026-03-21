@@ -1,7 +1,7 @@
 import { getWMODescription } from "@/lib/weather";
 
 const SIZE_MAP = {
-  sm: "1.5rem",
+  sm: "1.75rem",
   md: "3rem",
   lg: "5rem",
 } as const;

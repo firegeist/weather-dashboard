@@ -132,7 +132,7 @@ export default async function CityPage({ params }: CityPageProps) {
       </div>
 
       {/* ── Row 1: WeatherCard + Charts ── */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-[2fr_3fr] gap-4">
         {/* Left: current conditions */}
         <WeatherCard current={current} today={today} />
 
