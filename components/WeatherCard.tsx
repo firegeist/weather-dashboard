@@ -70,10 +70,10 @@ export default function WeatherCard({ current, today }: WeatherCardProps) {
           fontSize: "0.9rem",
         }}
       >
-        <span style={{ color: "var(--accent)" }}>
+        <span style={{ color: "#f5a623" }}>
           ↑ {formatTemperature(today.tempMax)}
         </span>
-        <span style={{ color: "var(--text-secondary)" }}>
+        <span style={{ color: "#7eb8f7" }}>
           ↓ {formatTemperature(today.tempMin)}
         </span>
       </div>
