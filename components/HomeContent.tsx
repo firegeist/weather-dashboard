@@ -16,23 +16,23 @@ export default function HomeContent() {
   }
 
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center px-4 py-12">
+    <main className="atm-night min-h-screen flex flex-col items-center justify-center px-4 py-12">
       <div className="w-full max-w-xl flex flex-col items-center gap-8">
 
         {/* Logo */}
         <div className="flex flex-col items-center gap-2 text-center">
           <h1
-            className="text-5xl sm:text-6xl font-medium tracking-tight"
+            className="text-5xl sm:text-6xl font-bold tracking-tight"
             style={{
-              fontFamily: "var(--font-dm-mono)",
-              color: "var(--accent-green)",
+              fontFamily: "var(--font-inter)",
+              color: "var(--text-primary)",
             }}
           >
             weather
           </h1>
           <p
             className="text-sm sm:text-base"
-            style={{ color: "var(--text-secondary)" }}
+            style={{ fontFamily: "var(--font-inter)", color: "var(--text-secondary)" }}
           >
             Previsión detallada para cualquier ciudad del mundo
           </p>
