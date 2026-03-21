@@ -22,11 +22,8 @@ export default function WindCard({ windspeed, winddirection, windspeedMax }: Win
 
   return (
     <div
+      className="w-card"
       style={{
-        background: "var(--bg-secondary)",
-        border: "1px solid var(--border)",
-        borderRadius: "16px",
-        padding: "1.5rem",
         display: "flex",
         flexDirection: "column",
         gap: "1rem",
@@ -97,14 +94,14 @@ export default function WindCard({ windspeed, winddirection, windspeedMax }: Win
               y1="52"
               x2="40"
               y2="22"
-              stroke="var(--accent-blue)"
+              stroke="var(--accent)"
               strokeWidth="2"
               strokeLinecap="round"
             />
             {/* Arrowhead */}
             <polygon
               points="40,14 35,24 45,24"
-              fill="var(--accent-blue)"
+              fill="var(--accent)"
             />
             {/* Tail dot */}
             <circle cx="40" cy="54" r="2.5" fill="rgba(255,255,255,0.3)" />
