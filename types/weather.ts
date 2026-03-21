@@ -17,6 +17,7 @@ export interface HourlyData {
   weathercode: number[];
   windspeed_10m: number[];
   uv_index: number[];
+  apparent_temperature: number[];
 }
 
 /** Raw daily arrays returned by Open-Meteo */

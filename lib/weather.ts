@@ -10,7 +10,7 @@ import type {
 const FORECAST_BASE = "https://api.open-meteo.com/v1/forecast";
 
 const HOURLY_PARAMS =
-  "temperature_2m,precipitation_probability,weathercode,windspeed_10m,uv_index";
+  "temperature_2m,apparent_temperature,precipitation_probability,weathercode,windspeed_10m,uv_index";
 const DAILY_PARAMS =
   "weathercode,temperature_2m_max,temperature_2m_min,precipitation_sum,windspeed_10m_max,sunrise,sunset";
 
@@ -152,7 +152,7 @@ function transformForecast(raw: WeatherResponse, city: string): ProcessedForecas
     timezone: raw.timezone,
     current: {
       temperature: current_weather.temperature,
-      feelsLike: null,
+      feelsLike: hourly.apparent_temperature[sliceStart] ?? null,
       weathercode: current_weather.weathercode,
       windspeed: current_weather.windspeed,
       winddirection: current_weather.winddirection,
