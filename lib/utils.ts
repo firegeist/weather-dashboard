@@ -54,3 +54,30 @@ export function getUVLabel(uvi: number): UVLabel {
   if (uvi < 11) return { label: "Muy alto",  color: "text-red-400"     };
   return               { label: "Extremo",   color: "text-purple-400"  };
 }
+
+// ─── Atmospheric state ────────────────────────────────────────────────────────
+
+/**
+ * Maps Open-Meteo weathercode + is_day flag to an atmospheric CSS class name.
+ * The class is applied to <main> to drive dynamic theming.
+ *
+ * WMO weathercode reference:
+ *   0–1   → clear
+ *   2–3   → cloudy
+ *   45,48 → fog
+ *   51–67 → drizzle / rain
+ *   71–77 → snow
+ *   80–82 → rain showers
+ *   85–86 → snow showers
+ *   95–99 → thunderstorm
+ */
+export function getAtmosphericState(weathercode: number, is_day: number): string {
+  if (is_day === 0) return "atm-night";
+  if (weathercode <= 1) return "atm-clear-day";
+  if (weathercode <= 3) return "atm-cloudy-day";
+  if (weathercode <= 48) return "atm-fog";
+  if (weathercode <= 67) return "atm-rain";
+  if (weathercode <= 77) return "atm-snow";
+  if (weathercode <= 86) return "atm-rain";
+  return "atm-storm"; // 95–99
+}
