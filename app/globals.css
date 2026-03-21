@@ -4,14 +4,166 @@
   --bg-primary: #0c0c0e;
   --bg-secondary: #111114;
   --bg-tertiary: #16161a;
-  --accent-green: #7ef2c0;
   --accent-blue: #3b8bd4;
   --text-primary: #f0f0f0;
   --text-secondary: #8a8a8a;
   --border: rgba(255, 255, 255, 0.07);
+  --border-strong: rgba(255, 255, 255, 0.12);
+  --radius-card: 16px;
+
+  /* Dynamic tokens — overridden by .atm-* classes */
+  --accent: #7eb8f7;
+  --card-tint: rgba(0, 0, 0, 0);
+}
+
+html, body {
+  height: 100%;
 }
 
 body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
+  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Data values stay in monospace */
+.mono {
+  font-family: var(--font-dm-mono), ui-monospace, monospace;
+}
+
+/* Guarantees content appears above atmospheric overlays */
+main {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Card base ── */
+.w-card {
+  background: color-mix(in srgb, var(--bg-secondary) 96%, var(--card-tint));
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 1.5rem;
+}
+
+/* ── Section label ── */
+.w-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-secondary);
+  margin-bottom: 0.75rem;
+}
+
+/* ── Mobile: padding reducido en pantallas pequeñas ── */
+@media (max-width: 480px) {
+  .w-card {
+    padding: 1rem;
+  }
+}
+
+/* ══════════════════════════════════════════════════════
+   ATMOSPHERIC THEMES
+   Each class is applied to <main> server-side.
+   Sets --accent, --card-tint, and a background gradient.
+   ══════════════════════════════════════════════════════ */
+
+.atm-clear-day {
+  --accent: #f5a623;
+  --card-tint: rgba(245, 166, 35, 0.04);
+  background:
+    radial-gradient(ellipse 140% 55% at 50% -5%,
+      rgba(245, 166, 35, 0.14) 0%,
+      rgba(59, 139, 212, 0.10) 35%,
+      transparent 65%),
+    var(--bg-primary);
+}
+
+.atm-cloudy-day {
+  --accent: #90b4ce;
+  --card-tint: rgba(144, 180, 206, 0.04);
+  background:
+    radial-gradient(ellipse 130% 50% at 50% 0%,
+      rgba(100, 130, 160, 0.12) 0%,
+      transparent 60%),
+    var(--bg-primary);
+}
+
+.atm-fog {
+  --accent: #a0a8b8;
+  --card-tint: rgba(160, 168, 184, 0.04);
+  background:
+    radial-gradient(ellipse 160% 60% at 50% 0%,
+      rgba(140, 148, 170, 0.10) 0%,
+      transparent 55%),
+    var(--bg-primary);
+}
+
+.atm-rain {
+  --accent: #5b9bd5;
+  --card-tint: rgba(91, 155, 213, 0.04);
+  background:
+    radial-gradient(ellipse 100% 70% at 50% 100%,
+      rgba(20, 50, 90, 0.25) 0%,
+      transparent 60%),
+    radial-gradient(ellipse 120% 40% at 50% 0%,
+      rgba(40, 70, 110, 0.15) 0%,
+      transparent 55%),
+    var(--bg-primary);
+}
+
+.atm-snow {
+  --accent: #89c4e1;
+  --card-tint: rgba(137, 196, 225, 0.04);
+  background:
+    radial-gradient(ellipse 150% 55% at 50% -10%,
+      rgba(180, 210, 230, 0.10) 0%,
+      rgba(100, 150, 180, 0.07) 40%,
+      transparent 65%),
+    var(--bg-primary);
+}
+
+.atm-storm {
+  --accent: #9b7fe8;
+  --card-tint: rgba(155, 127, 232, 0.04);
+  background:
+    radial-gradient(ellipse 120% 65% at 50% 100%,
+      rgba(40, 20, 80, 0.30) 0%,
+      transparent 55%),
+    radial-gradient(ellipse 100% 40% at 50% 0%,
+      rgba(70, 40, 120, 0.18) 0%,
+      transparent 50%),
+    var(--bg-primary);
+}
+
+.atm-night {
+  --accent: #7eb8f7;
+  --card-tint: rgba(126, 184, 247, 0.04);
+  background:
+    radial-gradient(ellipse 140% 60% at 50% -5%,
+      rgba(20, 30, 70, 0.60) 0%,
+      rgba(10, 15, 40, 0.40) 40%,
+      transparent 70%),
+    var(--bg-primary);
+}
+
+/* Night starfield — 5 CSS-only star dots */
+@keyframes star-pulse {
+  from { opacity: 0.4; }
+  to   { opacity: 0.9; }
+}
+
+.atm-night::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(1px 1px at 18% 10%, rgba(255,255,255,0.75) 0%, transparent 100%),
+    radial-gradient(1px 1px at 72% 7%,  rgba(255,255,255,0.55) 0%, transparent 100%),
+    radial-gradient(1px 1px at 48% 20%, rgba(255,255,255,0.45) 0%, transparent 100%),
+    radial-gradient(1px 1px at 33% 4%,  rgba(255,255,255,0.65) 0%, transparent 100%),
+    radial-gradient(1px 1px at 87% 16%, rgba(255,255,255,0.50) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 0;
+  animation: star-pulse 4s ease-in-out infinite alternate;
 }
