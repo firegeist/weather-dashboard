@@ -3,6 +3,7 @@ import { formatWind } from "@/lib/utils";
 interface WindCardProps {
   windspeed: number;
   winddirection: number;
+  windspeedMax: number;
 }
 
 const CARDINAL_LABELS = ["N", "NE", "E", "SE", "S", "SO", "O", "NO"] as const;
@@ -12,7 +13,7 @@ function toCardinal(degrees: number): string {
   return CARDINAL_LABELS[index];
 }
 
-export default function WindCard({ windspeed, winddirection }: WindCardProps) {
+export default function WindCard({ windspeed, winddirection, windspeedMax }: WindCardProps) {
   const cardinal = toCardinal(winddirection);
 
   // Arrow points in the direction the wind is blowing TO.
@@ -131,6 +132,16 @@ export default function WindCard({ windspeed, winddirection }: WindCardProps) {
             }}
           >
             {cardinal}
+          </span>
+          <span
+            style={{
+              fontFamily: "'DM Mono', monospace",
+              fontSize: "0.75rem",
+              color: "var(--text-secondary)",
+              marginTop: "0.25rem",
+            }}
+          >
+            Máx. hoy: {formatWind(windspeedMax)}
           </span>
         </div>
       </div>
