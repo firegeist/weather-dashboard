@@ -37,15 +37,19 @@ Computed server-side in `[city]/page.tsx` using `current.weathercode` and `curre
 | `atm-cloudy-day` | Codes 2–3 + day | Flat cool gray-blue | `#90b4ce` |
 | `atm-fog` | Codes 45–48 | Muted gray-lavender | `#a0a8b8` |
 | `atm-rain` | Codes 51–65 | Dark slate-blue, gradient downward | `#5b9bd5` |
-| `atm-snow` | Codes 71–77 | Blue-white, near monochromatic | `#c8e6f5` |
+| `atm-snow` | Codes 71–77 | Blue-white, near monochromatic | `#89c4e1` ⚠️ |
 | `atm-storm` | Codes 80–99 | Deep violet-gray, dramatic | `#9b7fe8` |
 | `atm-night` | Any code + night | Deep indigo with subtle CSS star dots | `#7eb8f7` |
+
+⚠️ **Snow accent note:** Original `#c8e6f5` was too pale for legible contrast on dark cards. Changed to `#89c4e1` (medium ice blue) which passes contrast checks against the dark card backgrounds while retaining the cold/snowy feel.
 
 Home page (`HomeContent.tsx`) always renders with `atm-night` class — gives the search screen its own character without weather data.
 
 ### 4. Card tinting
 
-Each atmospheric class sets `--card-tint` (a very low-opacity rgba of the accent). The `.w-card` rule in `globals.css` gains `background: var(--card-tint)` in addition to the dark base. This lets the atmosphere "bleed through" the cards without hurting legibility.
+Each atmospheric class sets `--card-tint` (a very low-opacity rgba of the accent, e.g. `rgba(91,155,213,0.04)`). The `.w-card` rule in `globals.css` gains `background: var(--card-tint)` in addition to the dark base. A fallback `--card-tint: rgba(0,0,0,0)` is declared at `:root` so cards render safely before any `.atm-*` class is applied (error states, loading, etc.). This lets the atmosphere "bleed through" the cards without hurting legibility.
+
+`ForecastGrid`'s "Hoy" highlight uses `--card-tint` directly (same token, already defined per state) rather than a separate `--accent-rgb` triplet — no need to define RGB triplet variables.
 
 ### 5. Night starfield
 
@@ -58,12 +62,12 @@ The `atm-night` class adds 5 small dot pseudo-elements (CSS only, no JS) that pu
 | File | Change |
 |------|--------|
 | `app/layout.tsx` | Add Inter from Google Fonts |
-| `app/globals.css` | Add 7 `.atm-*` classes; add `--accent` and `--card-tint` tokens; update `.w-card` to use `--card-tint`; Inter as default body font; DM Mono retained for data |
+| `app/globals.css` | Add 7 `.atm-*` classes; add `--accent: #7eb8f7` and `--card-tint: rgba(0,0,0,0)` as `:root` defaults (fallback for error states / renders outside an `.atm-*` context); each `.atm-*` class overrides both; update `.w-card` to use `--card-tint`; remove `body::before` blue gradient (replaced by per-state atmospheric gradients); Inter as default body font; DM Mono retained for data |
 | `lib/utils.ts` | Add `getAtmosphericState(weathercode: number, is_day: number): string` |
-| `app/[city]/page.tsx` | Call `getAtmosphericState`, apply class to `<main>`; change Row 2 grid to `grid-cols-2 sm:grid-cols-3` with `PrecipitationChart` spanning `col-span-2 sm:col-span-1` |
+| `app/[city]/page.tsx` | Call `getAtmosphericState`, apply class to `<main>`; change Row 2 grid to `grid-cols-2 sm:grid-cols-3` with `PrecipitationChart` spanning `col-span-2 sm:col-span-1`; change back link hover from `hover:[color:var(--accent-green)]` to `hover:[color:var(--accent)]` |
 | `components/HomeContent.tsx` | Wrap in `<main className="atm-night ...">`, title to Inter Bold white, subtitle Inter |
-| `components/WeatherCard.tsx` | Temperature color → `var(--accent)` (removes fixed green/blue logic) |
-| `components/ForecastGrid.tsx` | "Hoy" highlight: `rgba(var(--accent-rgb), 0.08)` border and background; day label → `var(--accent)` |
+| `components/WeatherCard.tsx` | Temperature color → `var(--accent)` (removes fixed green/blue logic); temperature font size → `clamp(2.5rem, 10vw, 4rem)` |
+| `components/ForecastGrid.tsx` | "Hoy" highlight: use `--card-tint` (2× more opaque version, e.g. inline `style={{ background: 'var(--card-tint)', border: '1px solid var(--accent)' }}`); day label → `var(--accent)` |
 | `components/SearchBar.tsx` | `focus-within:border-[var(--accent)]`, MapPin and geo button → `var(--accent)` |
 | `components/WindCard.tsx` | Compass arrow → `var(--accent)` |
 
