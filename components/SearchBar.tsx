@@ -7,7 +7,11 @@ import { searchCities, getCitySlug } from "@/lib/geocoding";
 import { useGeolocation } from "@/hooks/useGeolocation";
 import type { GeocodingResult } from "@/types/weather";
 
-export default function SearchBar() {
+interface SearchBarProps {
+  onSelect?: (result: GeocodingResult) => void;
+}
+
+export default function SearchBar({ onSelect }: SearchBarProps) {
   const router = useRouter();
   const {
     latitude,
@@ -66,9 +70,10 @@ export default function SearchBar() {
     (result: GeocodingResult) => {
       setOpen(false);
       setQuery("");
+      onSelect?.(result);
       router.push(`/${getCitySlug(result)}`);
     },
-    [router]
+    [router, onSelect]
   );
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
