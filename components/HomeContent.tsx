@@ -86,6 +86,32 @@ export default function HomeContent() {
         )}
 
       </div>
+
+      {/* Credits */}
+      <p style={{ color: "var(--text-secondary)", fontSize: "0.75rem", textAlign: "center", marginTop: "2rem" }}>
+        por José Herranz ·{" "}
+        <a
+          href="https://joseherranz.dev"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ color: "var(--text-secondary)", textDecoration: "none", transition: "color 0.2s" }}
+          onMouseEnter={e => (e.currentTarget.style.color = "var(--text-primary)")}
+          onMouseLeave={e => (e.currentTarget.style.color = "var(--text-secondary)")}
+        >
+          portfolio
+        </a>
+        {" · "}
+        <a
+          href="https://github.com/firegeist"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ color: "var(--text-secondary)", textDecoration: "none", transition: "color 0.2s" }}
+          onMouseEnter={e => (e.currentTarget.style.color = "var(--text-primary)")}
+          onMouseLeave={e => (e.currentTarget.style.color = "var(--text-secondary)")}
+        >
+          GitHub
+        </a>
+      </p>
     </main>
   );
 }

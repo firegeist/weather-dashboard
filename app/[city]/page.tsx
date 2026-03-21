@@ -185,6 +185,30 @@ export default async function CityPage({ params }: CityPageProps) {
         <ForecastGrid days={daily} />
       </div>
 
+      {/* Credits */}
+      <p style={{ color: "var(--text-secondary)", fontSize: "0.75rem", textAlign: "right", paddingTop: "0.5rem", paddingBottom: "1rem" }}>
+        por José Herranz ·{" "}
+        <a
+          href="https://joseherranz.dev"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="transition-colors duration-200 hover:[color:var(--text-primary)]"
+          style={{ color: "var(--text-secondary)", textDecoration: "none" }}
+        >
+          portfolio
+        </a>
+        {" · "}
+        <a
+          href="https://github.com/firegeist"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="transition-colors duration-200 hover:[color:var(--text-primary)]"
+          style={{ color: "var(--text-secondary)", textDecoration: "none" }}
+        >
+          GitHub
+        </a>
+      </p>
+
     </main>
   );
 }
