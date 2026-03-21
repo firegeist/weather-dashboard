@@ -63,7 +63,7 @@ export default async function CityPage({ params }: CityPageProps) {
 
   if (!result) {
     return (
-      <main className="min-h-screen flex flex-col items-center justify-center px-4 gap-4 text-center">
+      <main className="atm-night min-h-screen flex flex-col items-center justify-center px-4 gap-4 text-center">
         <p style={{ color: "var(--text-secondary)" }}>
           No se encontró la ciudad{" "}
           <strong style={{ color: "var(--text-primary)" }}>{city}</strong>.

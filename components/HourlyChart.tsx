@@ -44,7 +44,7 @@ function CustomTooltip({ active, payload }: CustomTooltipProps) {
       }}
     >
       <div style={{ color: "var(--text-secondary)" }}>{point.hour}</div>
-      <div style={{ color: "var(--accent-green)", fontWeight: 500 }}>
+      <div style={{ color: "var(--accent)", fontWeight: 500 }}>
         {Math.round(point.temperature)}°C
       </div>
       <div>{emoji}</div>
@@ -76,8 +76,8 @@ export default function HourlyChart({ data }: HourlyChartProps) {
         <AreaChart data={chartData} margin={{ top: 8, right: 4, left: 4, bottom: 0 }}>
           <defs>
             <linearGradient id="tempGradient" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#7ef2c0" stopOpacity={0.2} />
-              <stop offset="100%" stopColor="#7ef2c0" stopOpacity={0} />
+              <stop offset="0%" stopColor="#7eb8f7" stopOpacity={0.2} />
+              <stop offset="100%" stopColor="#7eb8f7" stopOpacity={0} />
             </linearGradient>
           </defs>
 
@@ -104,10 +104,10 @@ export default function HourlyChart({ data }: HourlyChartProps) {
           <Area
             type="monotone"
             dataKey="temperature"
-            stroke="#7ef2c0"
+            stroke="#7eb8f7"
             strokeWidth={2}
             dot={false}
-            activeDot={{ r: 4, fill: "#7ef2c0", strokeWidth: 0 }}
+            activeDot={{ r: 4, fill: "#7eb8f7", strokeWidth: 0 }}
             fill="url(#tempGradient)"
           />
         </AreaChart>

@@ -35,7 +35,9 @@ export default function ForecastGrid({ days }: ForecastGridProps) {
             <div
               key={day.date}
               style={{
-                background: index === 0 ? "var(--card-tint)" : "var(--bg-tertiary)",
+                background: index === 0
+                  ? "color-mix(in srgb, var(--bg-tertiary) 90%, var(--card-tint))"
+                  : "var(--bg-tertiary)",
                 border:
                   index === 0
                     ? "1px solid var(--accent)"
